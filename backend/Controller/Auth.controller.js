@@ -6,9 +6,9 @@ const salt = bcrypt.genSaltSync(saltRounds)
 
 const signup = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
+    const { fullName, username, password, cPassword, gender } = req.body;
 
-    if (password !== confirmPassword) {
+    if (password !== cPassword) {
       res.status(400).json({ error: "Passwords don't match" });
     }
 
