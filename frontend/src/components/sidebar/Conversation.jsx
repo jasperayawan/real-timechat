@@ -11,6 +11,7 @@ const Conversation = ({ conversation, lastIdx }) => {
   const { onlineUsers } = useSocketContext()
   const isOnline = onlineUsers.includes(conversation._id)
 
+
   return (
     <div onClick={() => dispatch(setSelectedConversation(conversation))} className={`w-full cursor-pointer ${isSelected ? 'bg-blue-500' : ''} flex flex-col mt-5`}>
       <div className="flex flex-row justify-between items-center">

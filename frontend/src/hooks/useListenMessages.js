@@ -11,11 +11,13 @@ const useListenMessages = () => {
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {
         newMessage.shouldShake = true
+        console.log(newMessage)
         dispatch(setMessages([...messages, newMessage]))
     })
 
     return () => socket?.off("newMessage")
   },[socket, setMessages, messages])
+  
 }
 
 export default useListenMessages

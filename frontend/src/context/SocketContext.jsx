@@ -12,12 +12,13 @@ export const useSocketContext = () => {
 export const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
-    const auth = useSelector((state) => state.Auth)
     const usr = localStorage.getItem("chat-user")
 
+  
     useEffect(() => {
         if(usr){
             const user = JSON.parse(usr)
+
             const socket = io("http://localhost:5000", {
                 query: {
                     userId: user?._id

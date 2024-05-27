@@ -21,7 +21,7 @@ const Messages = ({ selectedConversation }) => {
   },[selectedConversation])
 
   return (
-    <div className='flex flex-col overflow-auto h-full'>
+    <div className='flex flex-col overflow-auto h-full scrollbar pb-[100px]'>
       {message.length > 0 ? (
         <>
         {message.map((msg,idx) => (

@@ -6,14 +6,15 @@ import { useSelector } from "react-redux";
 
 const MessageContainer = () => {
     const selectedConversation = useSelector((state) => state.UseConversation.selectedConversation);
-    const Auth = useSelector((state) => state.Auth);
-    const user = JSON.parse(Auth.userData)
+    let chatUser = localStorage.getItem("chat-user")
+    chatUser = JSON.parse(chatUser)
+
     const message = useSelector((state) => state.UseConversation.messages);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full overflow-hidden">
       {!selectedConversation ? (
-        <NoChatSelected user={user.fullName}/>
+        <NoChatSelected user={chatUser.fullName}/>
       ) : (
         <div className="w-full relative h-full ml-5 text-white">
         <div className="">

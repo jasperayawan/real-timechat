@@ -7,8 +7,6 @@ import { removeSelected } from '../../state/reducers/useConversation.slice';
 
 
 const Logout = () => {
-    const user = useSelector((state) => state.Auth.userData)
-    const selectedConversation = useSelector((state) => state.UseConversation.selectedConversation);
     const dispatch = useDispatch();
     const { loading, logout } = useLogout();
     

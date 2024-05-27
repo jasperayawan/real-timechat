@@ -3,12 +3,11 @@ import { useSelector } from 'react-redux'
 import { extractTime } from '../../utils/extractTime'
 
 const Message = ({ message, selectedConversation }) => {
-  const auth = useSelector((state) => state.Auth)
+  const user = JSON.parse(localStorage.getItem("chat-user"))
 
-  const authData = JSON.parse(auth.userData)
-  const fromMe = message.senderId === authData._id
+  const fromMe = message.senderId === user._id
   const formattedTime = extractTime(message.createdAt)
-  const profilePic = fromMe ? authData.profilePic : selectedConversation?.profilePic
+  const profilePic = fromMe ? user.profilePic : selectedConversation?.profilePic
   const bubbleBgColor = fromMe ? 'bg-blue-500' : 'bg-zinc-600 text-white'
 
   return (
