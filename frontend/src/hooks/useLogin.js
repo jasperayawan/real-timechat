@@ -10,6 +10,7 @@ const useLogin = () => {
     try{
         const res = await axios.post('/api/auth/login', formData)
         dispatch(setUserData(JSON.stringify(res.data)))
+        localStorage.setItem("chat-user", JSON.stringify(res.data))
     }
     catch(error){
         console.log(error)

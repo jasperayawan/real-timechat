@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSocketContext } from '../context/SocketContext'
-import useConversationSlice, { setMessages } from '../state/reducers/useConversation.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { setMessages } from '../state/reducers/useConversation.slice';
 
 const useListenMessages = () => {
   const { socket } = useSocketContext();

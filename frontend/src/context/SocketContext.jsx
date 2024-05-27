@@ -13,10 +13,11 @@ export const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
     const auth = useSelector((state) => state.Auth)
- 
+    const usr = localStorage.getItem("chat-user")
+
     useEffect(() => {
-        if(auth){
-            const user = JSON.parse(auth.userData)
+        if(usr){
+            const user = JSON.parse(usr)
             const socket = io("http://localhost:5000", {
                 query: {
                     userId: user?._id
@@ -37,7 +38,7 @@ export const SocketContextProvider = ({ children }) => {
                 setSocket(null)
             }
         }
-    },[auth])
+    },[usr])
 
   return (
     <SocketContext.Provider value={{socket, onlineUsers}}>
