@@ -5,14 +5,14 @@ import axios from 'axios'
 const useSignup = () => {
     const [loading, setLoading] = useState(false);
 
-    const signup = async (formData) => {
+    const signup = async (formData, dispatch, setUserData) => {
         const success = handleInputErrors(formData)
         if(!success) return;
 
         setLoading(true);
         try{
             const res = await axios.post("/api/auth/signup", formData)
-            localStorage.setItem("chat-user", JSON.stringify(res.data))
+            dispatch(setUserData(JSON.stringify(res.data)))
         }
         catch(error){
             console.log(error)

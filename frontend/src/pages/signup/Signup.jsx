@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import GenderCheckBox from "./GenderCheckBox";
 import axios from 'axios'
 import useSignup from "../../hooks/useSignup";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../state/reducers/Auth.slice";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Signup = () => {
+  const user = useSelector((state) => state.Auth.userData)
+  const dispatch = useDispatch();
+
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +29,7 @@ const Signup = () => {
             gender
         }
 
-        await signup(formData)
+        await signup(formData, dispatch, setUserData)
     }
 
     const handleCheckboxChange = (gender) => {
@@ -76,8 +82,9 @@ const Signup = () => {
               />
             </div>
             <GenderCheckBox handleCheckboxChange={handleCheckboxChange} gender={gender}/>
-            <button type="submit" className="bg-slate-950 text-white py-3 rounded-md">
-              Sign Up
+            <button type="submit" disabled={loading} className="bg-slate-950 flex justify-center items-center text-white py-3 rounded-md">
+              
+              {loading ? <AiOutlineLoading3Quarters fontSize={25}/> : 'Sign Up'}
             </button>
           </div>
         </form>
