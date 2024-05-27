@@ -3,11 +3,13 @@ import Message from './Message'
 import useGetMessages from '../../hooks/useGetMessages'
 import { setMessages } from '../../state/reducers/useConversation.slice'
 import { useDispatch, useSelector } from 'react-redux'
+import useListenMessages from '../../hooks/useListenMessages'
 
 
 const Messages = ({ selectedConversation }) => {
   const { loading, getMessages } = useGetMessages();
   const message = useSelector((state) => state.UseConversation.messages)
+  useListenMessages();
   const dispatch = useDispatch();
   
 
