@@ -1,10 +1,11 @@
 const express = require("express");
-const app = express();
+// const app = express();
 const dotenv = require("dotenv");
 const connectToMongoDb = require("./db/ConnectToMongoDB");
 const bodyParser = require("body-parser")
 const cookieParse = require("cookie-parser")
 const cors = require('cors')
+const { app, server } = require('./socket/socket')
 
 const authRoutes = require("./routes/auth.route")
 const messageRoutes = require("./routes/message.route")
@@ -23,7 +24,7 @@ app.use("/api/message", messageRoutes)
 app.use("/api/user", userRoutes)
 
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log("server listening to port:", port)
     connectToMongoDb()
 })

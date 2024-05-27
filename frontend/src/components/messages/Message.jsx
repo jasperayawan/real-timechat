@@ -1,14 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { extractTime } from '../../utils/extractTime'
 
-const Message = () => {
+const Message = ({ message, selectedConversation }) => {
+  const auth = useSelector((state) => state.Auth)
+
+  const authData = JSON.parse(auth.userData)
+  const fromMe = message.senderId === authData._id
+  const formattedTime = extractTime(message.createdAt)
+  const profilePic = fromMe ? authData.profilePic : selectedConversation?.profilePic
+  const bubbleBgColor = fromMe ? 'bg-blue-500' : 'bg-zinc-600 text-white'
+
   return (
-    <div className='flex flex-row items-end justify-end'>
+    <div className={`flex flex-row ${fromMe ? 'items-end justify-end' : 'items-start justify-start'} pr-5`}>
       <div className="flex flex-row gap-x-2 justify-center items-start">
         <div className="flex flex-col gap-2">
-            <h3 className='bg-blue-500 py-2 px-4 rounded-full text-white'>Hi! What's up?</h3>
-            <p className='text-end text-sm'>12:41</p>
+            <h3 className={`${bubbleBgColor} py-2 px-4 rounded-full text-white`}>{message.message}</h3>
+            <p className='text-end text-sm'>{formattedTime}</p>
         </div>
-        <img src="/littlekong.jpg" alt="" className='w-[40px] h-[40px] rounded-full object-cover'/>
+        <img src={profilePic} alt="" className='w-[40px] h-[40px] rounded-full object-cover'/>
       </div>
     </div>
   )

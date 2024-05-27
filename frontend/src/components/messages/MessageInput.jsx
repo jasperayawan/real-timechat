@@ -1,12 +1,42 @@
-import React from 'react'
+import React, { useState } from "react";
+import useSendMessage from "../../hooks/useSendMessage";
+import { setMessages } from "../../state/reducers/useConversation.slice";
+import { useDispatch } from "react-redux";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const MessageInput = () => {
+const MessageInput = ({ messages, selectedConversation }) => {
+  const { loading, sendMessage } = useSendMessage();
+  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(!message) return;
+    await sendMessage(setMessages, selectedConversation, dispatch, messages, message);
+    setMessage("")
+  };
+
   return (
-    <form className='w-full relative flex flex-row gap-x-2 mt-10'>
-      <input type="text" placeholder='Send a message' className='px-5 py-3 border-slate-500 border-[1px] w-full rounded-full'/>
-      <button type='submit' className='px-5 py-3 bg-slate-800 rounded-full text-white'>Submit</button>
+    <form
+      onSubmit={handleSubmit}
+      className="absolute bottom-0 left-0 w-full flex flex-row gap-x-2 mt-10 pr-5"
+    >
+      <input
+        type="text"
+        placeholder="Send a message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className="px-5 py-3 text-black border-slate-500 border-[1px] w-full rounded-full"
+      />
+      <button
+        type="submit"
+        disabled={loading}
+        className="px-5 py-3 flex justify-center items-center bg-slate-800 rounded-full text-white"
+      >
+        {loading ? <AiOutlineLoading3Quarters fontSize={25}/> : 'Submit'}
+      </button>
     </form>
-  )
-}
+  );
+};
 
-export default MessageInput
+export default MessageInput;

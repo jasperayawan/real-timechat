@@ -3,6 +3,7 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage";
 
 import { AuthSlice } from "./reducers/Auth.slice";
+import { useGetConversationSlice } from "./reducers/useConversation.slice";
 
 const persistConfig = {
     key: "root",
@@ -10,7 +11,8 @@ const persistConfig = {
   };
 
   const rootReducer = combineReducers({
-    Auth: AuthSlice.reducer
+    Auth: AuthSlice.reducer,
+    UseConversation: useGetConversationSlice.reducer
   })
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
